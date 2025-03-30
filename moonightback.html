@@ -21,6 +21,24 @@
             white-space: pre-line;
         }
     </style>
+    <script>
+        // 마우스 오른쪽 클릭 방지
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
+
+        // 드래그 방지
+        document.addEventListener('selectstart', function(event) {
+            event.preventDefault();
+        });
+
+        // 복사(Ctrl + C) 방지
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
+    </script>
 </head>
 <body>
     <h1>사치</h1>
