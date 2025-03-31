@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본</title>
+    <style>
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            text-align: justify;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            white-space: pre-wrap;
+        }
+        .center {
+        display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
+        text-align: center;
+        }
+        
+    </style>
+    <script>
+        // 마우스 오른쪽 클릭 방지
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
+
+        // 드래그 방지
+        document.addEventListener('selectstart', function(event) {
+            event.preventDefault();
+        });
+
+        // 복사(Ctrl + C) 방지
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
+        document.addEventListener("keydown", function(event) {
+        if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
+            event.preventDefault();
+            alert("개발자 도구 사용이 제한되었습니다.");
+        }
+    });
+    </script>
+</head>
+<body>
+
+    <h1 style="text-align: left; margin-top: 50px;">제목</h1>
+    <p style="text-align: left; font-style: italic;">작가</p>
+    
+    <div class="content">
+
+        
+
+
+    </div>
+</body>
+</html>
