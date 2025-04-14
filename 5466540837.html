@@ -27,29 +27,48 @@
         
     </style>
     <script>
-        // 마우스 오른쪽 클릭 방지
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-            alert('이 페이지에서는 복사가 제한되어 있습니다.');
-        });
+    // 마우스 오른쪽 클릭 방지
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+        alert('이 페이지에서는 복사가 제한되어 있습니다.');
+    });
 
-        // 드래그 방지
-        document.addEventListener('selectstart', function(event) {
-            event.preventDefault();
-        });
+    // 드래그 방지
+    document.addEventListener('selectstart', function(event) {
+        event.preventDefault();
+    });
 
-        // 복사(Ctrl + C) 방지
-        document.addEventListener('copy', function(event) {
-            event.preventDefault();
-            alert('이 페이지에서는 복사가 제한되어 있습니다.');
-        });
-        document.addEventListener("keydown", function(event) {
+    // 복사 방지
+    document.addEventListener('copy', function(event) {
+        event.preventDefault();
+        alert('이 페이지에서는 복사가 제한되어 있습니다.');
+    });
+
+    // 개발자 도구 방지
+    document.addEventListener("keydown", function(event) {
         if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
             event.preventDefault();
             alert("개발자 도구 사용이 제한되었습니다.");
         }
     });
-    </script>
+
+    // 모바일 길게 누르기, 제스처 방지
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
+    });
+
+    // 스타일로 선택 방지
+    document.documentElement.style.userSelect = "none";
+    document.documentElement.style.webkitUserSelect = "none";
+    document.documentElement.style.msUserSelect = "none";
+</script>
+
 </head>
 <body>
 
