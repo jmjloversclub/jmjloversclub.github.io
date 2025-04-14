@@ -4,92 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bear with me</title>
-    <style>
-        body {
-            font-family: "Noto Sans KR", sans-serif;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            text-align: justify;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .content {
-            white-space: pre-wrap;
-        }
-        .center {
-        display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
-        text-align: center;
-        }
+     <style>
+         body {
+             font-family: "Noto Sans KR", sans-serif;
+             line-height: 1.8;
+             max-width: 800px;
+             margin: auto;
+             padding: 20px;
+             text-align: justify;
+         }
+         h1 {
+             text-align: center;
+             margin-bottom: 20px;
+         }
+         .content {
+             white-space: pre-wrap;
+         }
+         .center {
+         display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
+         text-align: center;
+         }
+ 
+     </style>
+     <script>
+         // 마우스 오른쪽 클릭 방지
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
 
-        .paragraph-line {
-            margin-bottom: 0.5em;
-          }
-        
-    </style>
-    <script>
-    // 마우스 오른쪽 클릭 방지
-    document.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-        alert('이 페이지에서는 복사가 제한되어 있습니다.');
-    });
+        // 드래그 방지
+        document.addEventListener('selectstart', function(event) {
+            event.preventDefault();
+        });
 
-    // 드래그 방지
-    document.addEventListener('selectstart', function(event) {
-        event.preventDefault();
-    });
-
-    // 복사 방지
-    document.addEventListener('copy', function(event) {
-        event.preventDefault();
-        alert('이 페이지에서는 복사가 제한되어 있습니다.');
-    });
-
-    // 개발자 도구 방지
-    document.addEventListener("keydown", function(event) {
+        // 복사(Ctrl + C) 방지
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
+        document.addEventListener("keydown", function(event) {
         if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
             event.preventDefault();
             alert("개발자 도구 사용이 제한되었습니다.");
         }
-    });
-
-    // 모바일 길게 누르기, 제스처 방지
-    document.addEventListener('touchstart', function(e) {
+        
+        });
+        // 모바일: 길게 누르기 방지 (복사/공유 방지)
+        document.addEventListener('touchstart', function(e) {
         if (e.touches.length > 1) {
+                e.preventDefault(); // 멀티터치도 막음
+            }
+        }, { passive: false });
+    
+        document.addEventListener('touchend', function(e) {
             e.preventDefault();
-        }
-    }, { passive: false });
+        });
+    
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
 
-    document.addEventListener('gesturestart', function(e) {
-        e.preventDefault();
-    });
-
-    // 스타일로 선택 방지
-    document.documentElement.style.userSelect = "none";
-    document.documentElement.style.webkitUserSelect = "none";
-    document.documentElement.style.msUserSelect = "none";
-
-    window.addEventListener("DOMContentLoaded", function () {
-    const el = document.getElementById("textContent");
-    const rawText = el.innerText;
-
-    const lines = rawText.trim().split("\n"); // 한 줄 단위로 나눔
-
-    // 줄마다 <div>로 감싸기 + 여백 추가
-    const html = lines
-      .map(line => {
-        const trimmed = line.trim();
-        if (trimmed === "") return "<div style='height: 1em;'></div>"; // 빈 줄은 그냥 공백 처리
-        return `<div class="paragraph-line">${trimmed}</div>`;
-      })
-      .join("");
-
-    el.innerHTML = html;
-  });
-</script>
+        // 모바일: 스타일로도 선택 불가 설정
+        document.documentElement.style.userSelect = "none";
+        document.documentElement.style.webkitUserSelect = "none";
+        document.documentElement.style.msUserSelect = "none";
+     </script>
 
 </head>
 <body>
