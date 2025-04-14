@@ -24,11 +24,13 @@
         display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
         text-align: center;
         }
-
-        .paragraph-line {
-            margin-bottom: 1.5em;
-            white-space: pre-wrap; /* 줄바꿈 + 공백 보존 */
-          }
+        #textContent {
+          white-space: pre-wrap; /* 줄바꿈 + 스페이스 보존 */
+          font-family: "Noto Sans KR", sans-serif;
+        }   
+        .paragraph {
+              margin-bottom: 0.5em; /* 문단 사이 간격 */
+            }
         
     </style>
     <script>
@@ -74,19 +76,18 @@
     document.documentElement.style.msUserSelect = "none";
 
     window.addEventListener("DOMContentLoaded", function () {
-    const el = document.getElementById("textContent");
-    const rawText = el.textContent;
+    const original = document.getElementById("textContent").textContent.trim();
+    const paragraphs = original.split(/\n\s*\n/); // 빈 줄 기준 문단 나누기
 
-    const lines = rawText.trim().split("\n");
+    const container = document.getElementById("renderedText");
 
-    const html = lines
-      .map(line => {
-        if (line.trim() === "") return "<div style='height: 1em;'></div>"; // 빈 줄이면 공백
-        return `<div class="paragraph-line">${line}</div>`;
-      })
-      .join("");
-
-    el.innerHTML = html;
+    paragraphs.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "paragraph";
+      div.style.whiteSpace = "pre-wrap"; // 줄바꿈 + 스페이스 유지
+      div.textContent = p.trim(); // 원본 문장 삽입
+      container.appendChild(div);
+    });
   });
 </script>
 
