@@ -4,89 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>루머와 자전거 上</title>
-    <style>
-        body {
-      font-family: "Noto Sans KR", sans-serif;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-      text-align: justify;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .content {
-      white-space: pre-wrap;
-    }
-    .center {
-      display: block;
-      text-align: center;
-    }
-    .paragraph {
-      white-space: pre-wrap;
-      margin-bottom: 0.5em;
-      text-indent: 2em;
-    }
-        
-    </style>
-    <script>
-    // 마우스 오른쪽 클릭 방지
-    document.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-        alert('이 페이지에서는 복사가 제한되어 있습니다.');
-    });
+     <style>
+         body {
+             font-family: "Noto Sans KR", sans-serif;
+             line-height: 1.8;
+             max-width: 800px;
+             margin: auto;
+             padding: 20px;
+             text-align: justify;
+         }
+         h1 {
+             text-align: center;
+             margin-bottom: 20px;
+         }
+         .content {
+             white-space: pre-wrap;
+         }
+         .center {
+         display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
+         text-align: center;
+         }
+ 
+     </style>
+     <script>
+         // 마우스 오른쪽 클릭 방지
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
 
-    // 드래그 방지
-    document.addEventListener('selectstart', function(event) {
-        event.preventDefault();
-    });
+        // 드래그 방지
+        document.addEventListener('selectstart', function(event) {
+            event.preventDefault();
+        });
 
-    // 복사 방지
-    document.addEventListener('copy', function(event) {
-        event.preventDefault();
-        alert('이 페이지에서는 복사가 제한되어 있습니다.');
-    });
-
-    // 개발자 도구 방지
-    document.addEventListener("keydown", function(event) {
+        // 복사(Ctrl + C) 방지
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+            alert('이 페이지에서는 복사가 제한되어 있습니다.');
+        });
+        document.addEventListener("keydown", function(event) {
         if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I")) {
             event.preventDefault();
             alert("개발자 도구 사용이 제한되었습니다.");
         }
-    });
-
-    // 모바일 길게 누르기, 제스처 방지
-    document.addEventListener('touchstart', function(e) {
+        
+        });
+        // 모바일: 길게 누르기 방지 (복사/공유 방지)
+        document.addEventListener('touchstart', function(e) {
         if (e.touches.length > 1) {
+                e.preventDefault(); // 멀티터치도 막음
+            }
+        }, { passive: false });
+    
+        document.addEventListener('touchend', function(e) {
             e.preventDefault();
-        }
-    }, { passive: false });
+        });
+    
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
 
-    document.addEventListener('gesturestart', function(e) {
-        e.preventDefault();
-    });
-
-    // 스타일로 선택 방지
-    document.documentElement.style.userSelect = "none";
-    document.documentElement.style.webkitUserSelect = "none";
-    document.documentElement.style.msUserSelect = "none";
-
-    window.addEventListener("DOMContentLoaded", function () {
-      const original = document.getElementById("textContent").textContent.trim();
-      const paragraphs = original.split(/\n(?=\S)/g); // 한 줄 개행 + 다음 줄 시작 공백 없으면 문단으로 처리
-
-      const container = document.getElementById("renderedText");
-
-      paragraphs.forEach(p => {
-        const div = document.createElement("div");
-        div.className = "paragraph";
-        div.textContent = p.trim();
-        container.appendChild(div);
-      });
-    });
-</script>
+        // 모바일: 스타일로도 선택 불가 설정
+        document.documentElement.style.userSelect = "none";
+        document.documentElement.style.webkitUserSelect = "none";
+        document.documentElement.style.msUserSelect = "none";
+     </script>
 
 </head>
 <body>
@@ -97,8 +80,6 @@
     <div class="content" id="textContent">
 
 
-
-        
 
 
 1.
