@@ -26,7 +26,8 @@
         }
 
         .paragraph-line {
-            margin-bottom: 0.5em;
+            margin-bottom: 1.5em;
+            white-space: pre-wrap; /* 줄바꿈 + 공백 보존 */
           }
         
     </style>
@@ -74,16 +75,14 @@
 
     window.addEventListener("DOMContentLoaded", function () {
     const el = document.getElementById("textContent");
-    const rawText = el.innerText;
+    const rawText = el.textContent;
 
-    const lines = rawText.trim().split("\n"); // 한 줄 단위로 나눔
+    const lines = rawText.trim().split("\n");
 
-    // 줄마다 <div>로 감싸기 + 여백 추가
     const html = lines
       .map(line => {
-        const trimmed = line.trim();
-        if (trimmed === "") return "<div style='height: 1em;'></div>"; // 빈 줄은 그냥 공백 처리
-        return `<div class="paragraph-line">${trimmed}</div>`;
+        if (line.trim() === "") return "<div style='height: 1em;'></div>"; // 빈 줄이면 공백
+        return `<div class="paragraph-line">${line}</div>`;
       })
       .join("");
 
