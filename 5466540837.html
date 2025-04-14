@@ -24,6 +24,10 @@
         display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
         text-align: center;
         }
+
+        .paragraph-line {
+            margin-bottom: 0.5em;
+          }
         
     </style>
     <script>
@@ -67,8 +71,25 @@
     document.documentElement.style.userSelect = "none";
     document.documentElement.style.webkitUserSelect = "none";
     document.documentElement.style.msUserSelect = "none";
-</script>
 
+    window.addEventListener("DOMContentLoaded", function () {
+    const el = document.getElementById("textContent");
+    const rawText = el.innerText;
+
+    const lines = rawText.trim().split("\n"); // 한 줄 단위로 나눔
+
+    // 줄마다 <div>로 감싸기 + 여백 추가
+    const html = lines
+      .map(line => {
+        const trimmed = line.trim();
+        if (trimmed === "") return "<div style='height: 1em;'></div>"; // 빈 줄은 그냥 공백 처리
+        return `<div class="paragraph-line">${trimmed}</div>`;
+      })
+      .join("");
+
+    el.innerHTML = html;
+  });
+</script>
 </head>
 <body>
 
@@ -78,6 +99,8 @@
     <div class="content">
 
 
+
+        
 
 
 
