@@ -6,31 +6,29 @@
     <title>루머와 자전거 上</title>
     <style>
         body {
-            font-family: "Noto Sans KR", sans-serif;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            text-align: justify;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .content {
-            white-space: pre-wrap;
-        }
-        .center {
-        display: block;  /* 블록 요소로 만들어서 가로 정렬 가능 */
-        text-align: center;
-        }
-        #textContent {
-          white-space: pre-wrap; /* 줄바꿈 + 스페이스 보존 */
-          font-family: "Noto Sans KR", sans-serif;
-        }   
-        .paragraph-line {
-            margin-bottom: 0.5em;
-          }
+      font-family: "Noto Sans KR", sans-serif;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      text-align: justify;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .content {
+      white-space: pre-wrap;
+    }
+    .center {
+      display: block;
+      text-align: center;
+    }
+    .paragraph {
+      white-space: pre-wrap;
+      margin-bottom: 0.5em;
+      text-indent: 2em;
+    }
         
     </style>
     <script>
@@ -76,19 +74,18 @@
     document.documentElement.style.msUserSelect = "none";
 
     window.addEventListener("DOMContentLoaded", function () {
-    const original = document.getElementById("textContent").textContent.trim();
-    const paragraphs = original.split(/\n\s*\n/); // 빈 줄 기준 문단 나누기
+      const original = document.getElementById("textContent").textContent.trim();
+      const paragraphs = original.split(/\n(?=\S)/g); // 한 줄 개행 + 다음 줄 시작 공백 없으면 문단으로 처리
 
-    const container = document.getElementById("renderedText");
+      const container = document.getElementById("renderedText");
 
-    paragraphs.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "paragraph";
-      div.style.whiteSpace = "pre-wrap"; // 줄바꿈 + 스페이스 유지
-      div.textContent = p.trim(); // 원본 문장 삽입
-      container.appendChild(div);
+      paragraphs.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "paragraph";
+        div.textContent = p.trim();
+        container.appendChild(div);
+      });
     });
-  });
 </script>
 
 </head>
